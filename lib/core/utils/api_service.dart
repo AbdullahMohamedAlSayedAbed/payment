@@ -12,10 +12,11 @@ class ApiService {
         data: body,
         options: Options(
           contentType: Headers.formUrlEncodedContentType,
-          headers:headers?? {
-            "Authorization": "Bearer $token",
-            "Content-Type": "application/json"
-          },
+          headers: headers ??
+              {
+                "Authorization": "Bearer $token",
+                "Content-Type": "application/json"
+              },
         ));
     return response;
   }
