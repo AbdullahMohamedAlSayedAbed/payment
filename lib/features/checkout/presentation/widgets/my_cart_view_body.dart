@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paymentapp/core/utils/app_images.dart';
-import 'package:paymentapp/features/checkout/data/repos/cheack_repo.dart';
 import 'package:paymentapp/features/checkout/data/repos/check_repo_impl.dart';
 import 'package:paymentapp/features/checkout/presentation/manger/cubit/payment_cubit.dart';
-import 'package:paymentapp/features/checkout/presentation/widgets/payment_methods_list_view.dart';
 
 import '../../../../core/widgets/custom_button.dart';
 import 'custom_divider.dart';

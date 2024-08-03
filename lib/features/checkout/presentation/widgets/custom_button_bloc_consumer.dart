@@ -42,19 +42,24 @@ class CustomButtonBlocConsumer extends StatelessWidget {
           name: 'Continue',
           isLoading: state is PaymentLoading,
           onPressed: () {
-            // PaymentIntentInputModel paymentIntentInputModel =
-            //     const PaymentIntentInputModel(
-            //         amount: '100',
-            //         currency: 'USD',
-            //         customerId: 'cus_QaV8EMsIvXQYwR');
-            // BlocProvider.of<PaymentCubit>(context)
-            //     .makePayment(paymentIntentInputModel: paymentIntentInputModel);
-            var transactionData = getTransactionData();
-            exauetPayPalPayment(context, transactionData);
+            buildChoicePayment(context);
           },
         );
       },
     );
+  }
+
+  void buildChoicePayment(BuildContext context) {
+    if (BlocProvider.of<PaymentCubit>(context).choiceIndex == 0) {
+      PaymentIntentInputModel paymentIntentInputModel =
+          const PaymentIntentInputModel(
+              amount: '100', currency: 'USD', customerId: 'cus_QaV8EMsIvXQYwR');
+      BlocProvider.of<PaymentCubit>(context)
+          .makePayment(paymentIntentInputModel: paymentIntentInputModel);
+    } else {
+      var transactionData = getTransactionData();
+      exauetPayPalPayment(context, transactionData);
+    }
   }
 
   void exauetPayPalPayment(BuildContext context,

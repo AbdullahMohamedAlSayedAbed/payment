@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paymentapp/core/utils/app_images.dart';
+import 'package:paymentapp/features/checkout/presentation/manger/cubit/payment_cubit.dart';
 import 'package:paymentapp/features/checkout/presentation/widgets/payment_method_item.dart';
 
-class PaymentMethodsListView extends StatefulWidget {
+class PaymentMethodsListView extends StatelessWidget {
   const PaymentMethodsListView({super.key});
-
-  @override
-  State<PaymentMethodsListView> createState() => _PaymentMethodsListViewState();
-}
-
-class _PaymentMethodsListViewState extends State<PaymentMethodsListView> {
-  final List<String> paymentMethod = [
+  static const List<String> paymentMethod = [
     Assets.imagesSVGRepoIconCarrier,
     Assets.imagesPaypal,
     Assets.imagesPayIos,
   ];
-  int activeIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -23,15 +19,20 @@ class _PaymentMethodsListViewState extends State<PaymentMethodsListView> {
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                activeIndex = index;
-                setState(() {});
+            return BlocBuilder<PaymentCubit, PaymentState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<PaymentCubit>(context).choicePayment(index);
+                  },
+                  child: PaymentMethodItem(
+                    image: paymentMethod[index],
+                    isActive:
+                        BlocProvider.of<PaymentCubit>(context).choiceIndex ==
+                            index,
+                  ),
+                );
               },
-              child: PaymentMethodItem(
-                image: paymentMethod[index],
-                isActive: activeIndex == index,
-              ),
             );
           },
           separatorBuilder: (context, index) => const SizedBox(

@@ -14,3 +14,5 @@ final class PaymentError extends PaymentState {
 
   PaymentError(this.errMessage);
 }
+
+final class PaymentChoice extends PaymentState {}

@@ -9,7 +9,7 @@ part 'payment_state.dart';
 
 class PaymentCubit extends Cubit<PaymentState> {
   PaymentCubit(this.checkRepo) : super(PaymentInitial());
-
+  int choiceIndex = 0;
   final CheckRepo checkRepo;
   Future<void> makePayment(
       {required PaymentIntentInputModel paymentIntentInputModel}) async {
@@ -21,6 +21,11 @@ class PaymentCubit extends Cubit<PaymentState> {
     }, (r) {
       emit(PaymentSuccess());
     });
+  }
+
+  void choicePayment(int index) {
+    choiceIndex = index;
+    emit(PaymentChoice());
   }
 
   @override
